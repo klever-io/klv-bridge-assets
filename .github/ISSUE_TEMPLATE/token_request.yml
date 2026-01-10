@@ -1,0 +1,88 @@
+name: Token Listing Request
+description: Request a new token to be added to the dashboard
+title: "[Token]: "
+labels: ["token-request", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Request a new token to be added to the Klever Bridge transparency dashboard.
+
+  - type: checkboxes
+    id: existing-issue
+    attributes:
+      label: Is there an existing request for this token?
+      description: Please search to see if a request already exists for this token.
+      options:
+        - label: I have searched the existing issues
+          required: true
+
+  - type: input
+    id: symbol
+    attributes:
+      label: Token Symbol
+      placeholder: e.g., USDT, USDC, WBTC
+    validations:
+      required: true
+
+  - type: input
+    id: name
+    attributes:
+      label: Token Name
+      placeholder: e.g., Tether USD, USD Coin
+    validations:
+      required: true
+
+  - type: input
+    id: decimals
+    attributes:
+      label: Token Decimals
+      placeholder: e.g., 6, 18
+    validations:
+      required: true
+
+  - type: input
+    id: klever-token-id
+    attributes:
+      label: KleverChain Base Token ID
+      description: The KDA ID for the wrapped token on KleverChain
+      placeholder: e.g., USDT-1A2B
+    validations:
+      required: true
+
+  - type: textarea
+    id: liquidity-tokens
+    attributes:
+      label: Liquidity Token IDs
+      description: List the per-chain liquidity token KDA IDs
+      placeholder: |
+        Ethereum: ETHUSDT-XXXX
+        BSC: BSCUSDT-XXXX
+    validations:
+      required: true
+
+  - type: textarea
+    id: source-chains
+    attributes:
+      label: Source Chain Details
+      description: Provide details for each source chain
+      placeholder: |
+        Chain: Ethereum
+        Token Contract: 0x...
+        Bridge Contract: 0x...
+        Decimals: 6
+    validations:
+      required: true
+
+  - type: input
+    id: logo-url
+    attributes:
+      label: Token Logo URL
+      description: URL to a high-quality token logo (PNG, transparent background)
+      placeholder: https://...
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Information
+      description: Any other relevant information about the token

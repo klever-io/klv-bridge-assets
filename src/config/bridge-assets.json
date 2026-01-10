@@ -1,0 +1,150 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-01-07T00:00:00Z",
+  "baseTokens": [
+    {
+      "id": "usdt",
+      "symbol": "USDT",
+      "name": "Tether USD",
+      "decimals": 6,
+      "logo": "/assets/wUSDT.png",
+      "kleverChain": {
+        "baseTokenId": "USDT-23V8"
+      },
+      "liquidityTokens": [
+        { "chainId": "ethereum", "kdaId": "ETHUSDT-1J2T", "description": "Ethereum Bridge Liquidity" }
+      ],
+      "sourceChains": [
+        {
+          "chainId": "ethereum",
+          "chainName": "Ethereum",
+          "evmChainId": 1,
+          "bridgeContract": "0xE617e604DB5EF0018B11B25fdf6D62234E974b39",
+          "tokenContract": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+          "decimals": 6,
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "id": "usdc",
+      "symbol": "USDC",
+      "name": "USD Coin",
+      "decimals": 6,
+      "logo": "/assets/wUSDC.png",
+      "kleverChain": {
+        "baseTokenId": "USDC-1LN4"
+      },
+      "liquidityTokens": [
+        { "chainId": "ethereum", "kdaId": "ETHUSDC-1NOM", "description": "Ethereum Bridge Liquidity" }
+      ],
+      "sourceChains": [
+        {
+          "chainId": "ethereum",
+          "chainName": "Ethereum",
+          "evmChainId": 1,
+          "bridgeContract": "0xE617e604DB5EF0018B11B25fdf6D62234E974b39",
+          "tokenContract": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+          "decimals": 6,
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "id": "wbtc",
+      "symbol": "wBTC",
+      "name": "Wrapped Bitcoin",
+      "decimals": 8,
+      "logo": "/assets/wBTC.png",
+      "kleverChain": {
+        "baseTokenId": "WBTC-3FB5"
+      },
+      "liquidityTokens": [
+        { "chainId": "ethereum", "kdaId": "ETHWBTC-36EQ", "description": "Ethereum Bridge Liquidity" }
+      ],
+      "sourceChains": [
+        {
+          "chainId": "ethereum",
+          "chainName": "Ethereum",
+          "evmChainId": 1,
+          "bridgeContract": "0xE617e604DB5EF0018B11B25fdf6D62234E974b39",
+          "tokenContract": "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
+          "decimals": 8,
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "id": "weth",
+      "symbol": "wETH",
+      "name": "Wrapped Ether",
+      "decimals": 8,
+      "logo": "/assets/wETH.png",
+      "kleverChain": {
+        "baseTokenId": "WETH-EFBC"
+      },
+      "liquidityTokens": [
+        { "chainId": "ethereum", "kdaId": "ETHWETH-22RH", "description": "Ethereum Bridge Liquidity" }
+      ],
+      "sourceChains": [
+        {
+          "chainId": "ethereum",
+          "chainName": "Ethereum",
+          "evmChainId": 1,
+          "bridgeContract": "0xE617e604DB5EF0018B11B25fdf6D62234E974b39",
+          "tokenContract": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+          "decimals": 18,
+          "enabled": true
+        }
+      ]
+    }
+  ],
+  "chains": {
+    "kleverchain": {
+      "id": "kleverchain",
+      "name": "KleverChain",
+      "type": "klever",
+      "explorer": "https://kleverscan.org",
+      "logo": "/assets/chains/klever.png"
+    },
+    "ethereum": {
+      "id": "ethereum",
+      "name": "Ethereum",
+      "type": "evm",
+      "evmChainId": 1,
+      "explorer": "https://etherscan.io",
+      "logo": "/assets/chains/ethereum.png"
+    },
+    "bsc": {
+      "id": "bsc",
+      "name": "BNB Smart Chain",
+      "type": "evm",
+      "evmChainId": 56,
+      "explorer": "https://bscscan.com",
+      "logo": "/assets/chains/bsc.png"
+    },
+    "polygon": {
+      "id": "polygon",
+      "name": "Polygon",
+      "type": "evm",
+      "evmChainId": 137,
+      "explorer": "https://polygonscan.com",
+      "logo": "/assets/chains/polygon.png"
+    },
+    "arbitrum": {
+      "id": "arbitrum",
+      "name": "Arbitrum One",
+      "type": "evm",
+      "evmChainId": 42161,
+      "explorer": "https://arbiscan.io",
+      "logo": "/assets/chains/arbitrum.png"
+    },
+    "tron": {
+      "id": "tron",
+      "name": "Tron",
+      "type": "tron",
+      "explorer": "https://tronscan.org",
+      "logo": "/assets/chains/tron.png"
+    }
+  }
+}

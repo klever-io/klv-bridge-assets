@@ -1,0 +1,825 @@
+@import "tailwindcss";
+
+@theme {
+  /* Klever Brand Colors - Based on klever.org */
+  --color-klv-pink: #e91e8c;
+  --color-klv-magenta: #d946ef;
+  --color-klv-purple: #9333ea;
+  --color-klv-green: #22c55e;
+  --color-klv-cyan: #06b6d4;
+
+  /* Gradients - Klever Logo Style */
+  --gradient-primary: linear-gradient(135deg, #e91e8c 0%, #9333ea 100%);
+  --gradient-accent: linear-gradient(135deg, #d946ef 0%, #e91e8c 100%);
+  --gradient-glow: linear-gradient(135deg, #e91e8c 0%, #d946ef 50%, #9333ea 100%);
+  --gradient-success: linear-gradient(135deg, #22c55e 0%, #10b981 100%);
+}
+
+:root {
+  /* Near-black backgrounds like klever.org */
+  --background: #050507;
+  --background-secondary: #0a0a0f;
+  --background-card: #0f0f14;
+  --foreground: #ffffff;
+  --foreground-secondary: #a1a1aa;
+  /* Pink/Magenta primary - matches Klever logo */
+  --primary: #e91e8c;
+  --primary-hover: #d91a80;
+  --primary-foreground: #ffffff;
+  --secondary: #9333ea;
+  --secondary-hover: #a855f7;
+  --accent: #d946ef;
+  --muted: #18181b;
+  --muted-foreground: #71717a;
+  --border: #27272a;
+  --border-hover: #3f3f46;
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --error: #ef4444;
+}
+
+/* Light mode - class-based for manual toggle */
+:root.light {
+  --background: #fafafa;
+  --background-secondary: #ffffff;
+  --background-card: #ffffff;
+  --foreground: #09090b;
+  --foreground-secondary: #52525b;
+  --primary: #db2777;
+  --primary-hover: #be185d;
+  --primary-foreground: #ffffff;
+  --secondary: #7c3aed;
+  --secondary-hover: #6d28d9;
+  --accent: #c026d3;
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
+  --border: #e4e4e7;
+  --border-hover: #d4d4d8;
+}
+
+/* Light mode glassmorphic card override */
+:root.light .card-glass {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  min-height: 100vh;
+}
+
+/* Animated gradient text - Klever style color shift */
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, #e91e8c, #d946ef, #9333ea, #d946ef, #e91e8c);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 8s ease-in-out infinite;
+}
+
+/* Glow effects - Pink/Magenta based */
+.glow-primary {
+  box-shadow: 0 0 20px rgba(233, 30, 140, 0.3);
+}
+
+.glow-secondary {
+  box-shadow: 0 0 20px rgba(147, 51, 234, 0.3);
+}
+
+/* Gradient border utility */
+.border-gradient {
+  position: relative;
+  background: var(--background-card);
+  border-radius: 12px;
+}
+
+.border-gradient::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: 12px;
+  background: var(--gradient-primary);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-hover);
+}
+
+/* Focus visible indicators for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Skip link for keyboard navigation */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  padding: 8px 16px;
+  z-index: 100;
+  transition: top 0.3s;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Card hover lift effect */
+.card-hover-lift {
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.card-hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+/* Expansion animation */
+.expand-animation {
+  animation: expandIn 0.2s ease-out;
+}
+
+@keyframes expandIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Monospace numbers for better alignment */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Tooltip styles */
+.tooltip {
+  position: relative;
+}
+
+.tooltip-content {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 12px;
+  background: var(--background-secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+  z-index: 50;
+  margin-bottom: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.tooltip-content::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--border);
+}
+
+.tooltip:hover .tooltip-content,
+.tooltip:focus-within .tooltip-content {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Modal animation */
+.animate-modal-in {
+  animation: modalIn 0.2s ease-out;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ============================================
+   PHASE 1: UI/UX ENHANCEMENTS
+   ============================================ */
+
+/* Shimmer skeleton animation */
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--muted) 0%,
+    rgba(233, 30, 140, 0.06) 25%,
+    rgba(147, 51, 234, 0.06) 50%,
+    rgba(233, 30, 140, 0.06) 75%,
+    var(--muted) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+/* Live pulse indicator */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.live-pulse {
+  position: relative;
+}
+
+.live-pulse::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--success);
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+/* Glassmorphic card - Subtle, premium dark */
+.card-glass {
+  background: rgba(15, 15, 20, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+/* Animated gradient border on hover */
+.card-gradient-border {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-gradient-border::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  padding: 1px;
+  border-radius: 12px;
+  background: linear-gradient(
+    135deg,
+    rgba(233, 30, 140, 0.4) 0%,
+    rgba(147, 51, 234, 0.4) 50%,
+    rgba(233, 30, 140, 0.4) 100%
+  );
+  background-size: 200% 200%;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  animation: gradientShift 4s ease infinite;
+  animation-play-state: paused;
+}
+
+.card-gradient-border:hover::after {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Progress bar wave effect */
+@keyframes wave {
+  0%, 100% {
+    transform: translateX(0) scaleY(1);
+  }
+  50% {
+    transform: translateX(-2px) scaleY(1.05);
+  }
+}
+
+.progress-wave {
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-wave::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 12px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3));
+  animation: wave 1.5s ease-in-out infinite;
+}
+
+/* Success glow pulse for fully backed */
+@keyframes success-glow {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(0, 208, 132, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 16px rgba(0, 208, 132, 0.6);
+  }
+}
+
+.glow-success-pulse {
+  animation: success-glow 2s ease-in-out infinite;
+}
+
+/* Count up animation helper */
+@keyframes countFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-count-in {
+  animation: countFadeIn 0.4s ease-out;
+}
+
+/* Staggered entry animation */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.4s ease-out backwards;
+}
+
+/* TVL large stat styling */
+.stat-tvl {
+  font-size: clamp(2rem, 8vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted-foreground);
+}
+
+/* Chain color utilities */
+.chain-ethereum { background-color: #627EEA; }
+.chain-bsc { background-color: #F3BA2F; }
+.chain-polygon { background-color: #8247E5; }
+.chain-arbitrum { background-color: #28A0F0; }
+.chain-tron { background-color: #FF0013; }
+.chain-klever { background-color: #e91e8c; }
+
+/* Radial progress glow */
+.radial-glow {
+  filter: drop-shadow(0 0 8px currentColor);
+}
+
+/* Explorer link hover */
+.explorer-link {
+  transition: color 0.2s, transform 0.2s;
+}
+
+.explorer-link:hover {
+  color: var(--primary);
+  transform: translateX(2px);
+}
+
+.explorer-link:hover svg {
+  transform: rotate(5deg);
+}
+
+/* Confetti burst keyframes */
+@keyframes confetti-burst {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1) translateY(20px);
+    opacity: 0;
+  }
+}
+
+.confetti-particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  animation: confetti-burst 0.8s ease-out forwards;
+}
+
+/* ============================================
+   PHASE 6: STATUS GLOW EFFECTS
+   ============================================ */
+
+/* Warning glow pulse for under-backed */
+@keyframes warning-glow {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 16px rgba(245, 158, 11, 0.5);
+  }
+}
+
+.glow-warning-pulse {
+  animation: warning-glow 2s ease-in-out infinite;
+}
+
+/* Error glow for critical states */
+@keyframes error-glow {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 16px rgba(239, 68, 68, 0.5);
+  }
+}
+
+.glow-error-pulse {
+  animation: error-glow 2s ease-in-out infinite;
+}
+
+/* Over-backed special glow (sparkle effect) */
+@keyframes over-backed-glow {
+  0%, 100% {
+    box-shadow:
+      0 0 8px rgba(34, 197, 94, 0.4),
+      0 0 20px rgba(233, 30, 140, 0.2);
+  }
+  50% {
+    box-shadow:
+      0 0 12px rgba(34, 197, 94, 0.6),
+      0 0 28px rgba(233, 30, 140, 0.35);
+  }
+}
+
+.glow-over-backed {
+  animation: over-backed-glow 2s ease-in-out infinite;
+}
+
+/* Card status glow - applied to token cards */
+.card-status-success {
+  border-color: rgba(0, 208, 132, 0.3);
+}
+
+.card-status-success:hover {
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(0, 208, 132, 0.15);
+}
+
+.card-status-warning {
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.card-status-warning:hover {
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(245, 158, 11, 0.15);
+}
+
+.card-status-error {
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.card-status-error:hover {
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(239, 68, 68, 0.15);
+}
+
+/* Status indicator dot animation */
+@keyframes status-blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.status-indicator-warning {
+  animation: status-blink 1.5s ease-in-out infinite;
+}
+
+/* Backing ratio number glow */
+.ratio-glow-success {
+  text-shadow: 0 0 12px rgba(0, 208, 132, 0.5);
+}
+
+.ratio-glow-warning {
+  text-shadow: 0 0 12px rgba(245, 158, 11, 0.5);
+}
+
+/* ============================================
+   KLEVER BRAND BUTTON STYLES
+   ============================================ */
+
+/* Primary CTA Button - Klever Bold Style */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  min-width: 140px;
+  font-weight: 800;
+  font-size: 0.875rem;
+  color: var(--primary-foreground);
+  background: var(--gradient-primary);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(233, 30, 140, 0.35);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Secondary Button - Purple Accent */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  min-width: 140px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: var(--foreground);
+  background: transparent;
+  border: 2px solid var(--secondary);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  background: var(--secondary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(147, 51, 234, 0.35);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+/* Accent CTA Button - Magenta */
+.btn-accent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  min-width: 140px;
+  font-weight: 800;
+  font-size: 0.875rem;
+  color: white;
+  background: var(--gradient-accent);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+  text-decoration: none;
+}
+
+.btn-accent:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(217, 70, 239, 0.4);
+}
+
+.btn-accent:active {
+  transform: translateY(0);
+}
+
+/* Ghost Button - Subtle */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+}
+
+.btn-ghost:hover {
+  color: var(--accent);
+  background: rgba(217, 70, 239, 0.1);
+}
+
+/* ============================================
+   PURPLE HOVER STATE ENHANCEMENTS
+   ============================================ */
+
+/* Links with purple hover */
+.link-hover-purple {
+  transition: color 0.2s ease-out;
+}
+
+.link-hover-purple:hover {
+  color: var(--secondary);
+}
+
+/* Cards with pink/purple border on hover */
+.card-hover-purple {
+  transition: border-color 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.card-hover-purple:hover {
+  border-color: rgba(233, 30, 140, 0.3);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(233, 30, 140, 0.12);
+}
+
+/* Interactive elements with purple focus */
+.focus-purple:focus-visible {
+  outline: 2px solid var(--secondary);
+  outline-offset: 2px;
+}
+
+/* Sort/filter buttons with active state */
+.btn-filter {
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  background: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+}
+
+.btn-filter:hover {
+  color: var(--foreground);
+  border-color: var(--border-hover);
+}
+
+.btn-filter.active {
+  color: var(--primary);
+  background: rgba(233, 30, 140, 0.1);
+  border-color: var(--primary);
+}
+
+/* ============================================
+   TYPOGRAPHY ENHANCEMENTS
+   ============================================ */
+
+/* Hero heading - extra bold */
+.heading-hero {
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+/* Section heading */
+.heading-section {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+/* Large body text - Klever style */
+.text-large {
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+
+/* Bold stats */
+.stat-value {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
