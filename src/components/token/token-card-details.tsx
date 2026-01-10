@@ -118,7 +118,7 @@ export function TokenCardDetails({
           id="universal-token-heading"
           className="text-xs font-medium text-[var(--muted-foreground)] uppercase tracking-wide mb-2"
         >
-          Universal Token (KleverChain)
+          Universal Token (Klever BlockChain)
         </h4>
         <div className="bg-[var(--muted)]/30 rounded-lg p-3">
           <div className="flex items-center justify-between">
@@ -138,7 +138,7 @@ export function TokenCardDetails({
             </span>
           </div>
           <p className="text-xs text-[var(--muted-foreground)] mt-1">
-            Total minted supply on KleverChain
+            Total minted supply on Klever Blockchain
           </p>
         </div>
       </section>

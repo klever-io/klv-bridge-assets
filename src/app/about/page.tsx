@@ -19,8 +19,8 @@ export default function AboutPage() {
             </h2>
             <p className="text-[var(--muted-foreground)] leading-relaxed">
               Klever Bridge is a cross-chain bridge that enables seamless transfer of assets
-              between KleverChain and other blockchain networks including Ethereum, BNB Smart Chain,
-              Polygon, and Arbitrum. The bridge allows users to wrap their tokens on KleverChain
+              between Klever Blockchain and other blockchain networks including Ethereum, BNB Smart Chain,
+              Polygon, and Arbitrum. The bridge allows users to wrap their tokens on Klever Blockchain
               while maintaining full backing by the original assets locked in bridge contracts.
             </p>
           </section>
@@ -50,7 +50,7 @@ export default function AboutPage() {
                 <div>
                   <h3 className="font-medium text-[var(--foreground)]">Mint</h3>
                   <p className="text-sm">
-                    An equivalent amount of wrapped tokens is minted on KleverChain, representing
+                    An equivalent amount of wrapped tokens is minted on Klever Blockchain, representing
                     the locked assets 1:1.
                   </p>
                 </div>
@@ -62,7 +62,7 @@ export default function AboutPage() {
                 <div>
                   <h3 className="font-medium text-[var(--foreground)]">Redeem</h3>
                   <p className="text-sm">
-                    When users want to withdraw, wrapped tokens are burned on KleverChain and
+                    When users want to withdraw, wrapped tokens are burned on Klever Blockchain and
                     the original tokens are released from the bridge contract.
                   </p>
                 </div>
@@ -77,7 +77,7 @@ export default function AboutPage() {
             </h2>
             <p className="text-[var(--muted-foreground)] leading-relaxed mb-4">
               This transparency portal provides real-time verification that all wrapped tokens
-              on KleverChain are fully backed by locked assets on source chains. You can verify:
+              on Klever Blockchain are fully backed by locked assets on source chains. You can verify:
             </p>
             <ul className="space-y-2 text-[var(--muted-foreground)]">
               <li className="flex items-start gap-2">
@@ -90,7 +90,7 @@ export default function AboutPage() {
                 <svg className="w-5 h-5 text-[var(--success)] flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                <span><strong>Minted supply</strong> — Total wrapped tokens circulating on KleverChain</span>
+                <span><strong>Minted supply</strong> — Total wrapped tokens circulating on Klever Blockchain</span>
               </li>
               <li className="flex items-start gap-2">
                 <svg className="w-5 h-5 text-[var(--success)] flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -118,7 +118,7 @@ export default function AboutPage() {
             <div className="bg-[var(--muted)]/30 rounded-lg p-4 space-y-3 text-sm">
               <div>
                 <span className="font-mono text-[var(--primary)]">USDT-XXXX</span>
-                <span className="text-[var(--muted-foreground)]"> — Base token (universal wrapped USDT on KleverChain)</span>
+                <span className="text-[var(--muted-foreground)]"> — Base token (universal wrapped USDT on Klever Blockchain)</span>
               </div>
               <div>
                 <span className="font-mono text-[var(--primary)]">ETHUSDT-XXXX</span>
@@ -143,7 +143,7 @@ export default function AboutPage() {
                 { name: "Polygon", logo: "/assets/chains/polygon.png", badge: "Coming Soon" },
                 { name: "Arbitrum", logo: "/assets/chains/arbitrum.png", badge: "Coming Soon" },
                 { name: "Tron", logo: "/assets/chains/tron.png", badge: "Coming Soon" },
-                { name: "KleverChain", logo: "/assets/chains/klever.png", badge: "Live" },
+                { name: "Klever Blockchain", logo: "/assets/chains/klever.png", badge: "Live" },
               ].map((chain) => (
                 <div
                   key={chain.name}

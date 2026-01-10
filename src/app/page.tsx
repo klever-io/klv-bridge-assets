@@ -11,7 +11,7 @@ export default function Home() {
             Bridge Transparency
           </h1>
           <p className="text-[var(--muted-foreground)] max-w-2xl mx-auto text-sm md:text-base">
-            Real-time verification of wrapped token balances across KleverChain and connected
+            Real-time verification of wrapped token balances across Klever Blockchain and connected
             networks. Full transparency for all bridged assets.
           </p>
         </section>

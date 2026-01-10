@@ -3,15 +3,15 @@
 [![CI](https://github.com/klever-io/klv-bridge-assets/actions/workflows/ci.yml/badge.svg)](https://github.com/klever-io/klv-bridge-assets/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-A transparency dashboard for the Klever Bridge, providing real-time verification that wrapped tokens on KleverChain are fully backed by assets locked on source chains.
+A transparency dashboard for the Klever Bridge, providing real-time verification that wrapped tokens on Klever Blockchain are fully backed by assets locked on source chains.
 
 ## Overview
 
-The Klever Bridge enables cross-chain asset transfers between KleverChain and other blockchain networks. This dashboard provides transparent, real-time proof that all wrapped tokens are 100% backed by locked collateral.
+The Klever Bridge enables cross-chain asset transfers between Klever Blockchain and other blockchain networks. This dashboard provides transparent, real-time proof that all wrapped tokens are 100% backed by locked collateral.
 
 ### Features
 
-- **Real-time Balance Verification** - Live data from bridge contracts and KleverChain
+- **Real-time Balance Verification** - Live data from bridge contracts and Klever Blockchain
 - **Multi-chain Support** - Ethereum (live), BSC, Polygon, Arbitrum, Tron (coming soon)
 - **Backing Ratio Display** - Visual indicators showing locked vs minted amounts
 - **On-chain Verification Links** - Direct links to block explorers for independent verification
@@ -26,7 +26,7 @@ The Klever Bridge enables cross-chain asset transfers between KleverChain and ot
 | Polygon | Coming Soon | [PolygonScan](https://polygonscan.com) |
 | Arbitrum | Coming Soon | [Arbiscan](https://arbiscan.io) |
 | Tron | Coming Soon | [Tronscan](https://tronscan.org) |
-| KleverChain | Live | [KleverScan](https://kleverscan.org) |
+| Klever Blockchain | Live | [KleverScan](https://kleverscan.org) |
 
 ## Tech Stack
 
@@ -68,7 +68,7 @@ Open [http://localhost:3000](http://localhost:3000) to view the dashboard.
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `NEXT_PUBLIC_KLEVER_API_URL` | KleverChain API endpoint | `https://api.mainnet.klever.org` |
+| `NEXT_PUBLIC_KLEVER_API_URL` | Klever Blockchain API endpoint | `https://api.mainnet.klever.org` |
 
 ## Available Scripts
 
@@ -108,7 +108,7 @@ public/assets/
 1. Edit `src/config/bridge-assets.json`
 2. Add token configuration with:
    - Symbol, name, decimals
-   - KleverChain base token ID
+   - Klever Blockchain base token ID
    - Liquidity tokens for each chain
    - Source chain configurations (bridge/token contracts)
 3. Add token logo to `public/assets/`
@@ -121,14 +121,14 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed instructions.
 
 The Klever Bridge uses a multi-token model:
 
-- **Base Token**: Universal wrapped token on KleverChain (e.g., `USDT-XXXX`)
+- **Base Token**: Universal wrapped token on Klever Blockchain (e.g., `USDT-XXXX`)
 - **Liquidity Tokens**: Per-chain tracking tokens (e.g., `ETHUSDT-XXXX`, `BSCUSDT-XXXX`)
 
 ### Data Flow
 
 1. Token configuration loaded from JSON registry
 2. EVM balances fetched via wagmi multicall
-3. KleverChain data fetched from Klever API
+3. Klever Blockchain data fetched from Klever API
 4. Data aggregated and backing ratio calculated
 5. UI displays real-time verification status
 

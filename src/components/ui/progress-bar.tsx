@@ -66,7 +66,7 @@ export function ProgressBar({
             <div className="tooltip-content w-64 whitespace-normal text-[var(--foreground-secondary)]">
               <strong className="text-[var(--foreground)]">Backing Ratio</strong>
               <br />
-              Shows the ratio of tokens locked on source chains compared to tokens minted on KleverChain. 100% or higher means fully backed.
+              Shows the ratio of tokens locked on source chains compared to tokens minted on Klever Blockchain. 100% or higher means fully backed.
             </div>
           </div>
         )}

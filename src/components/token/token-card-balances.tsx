@@ -90,7 +90,7 @@ export function TokenCardBalances({
             </>
           )}
           <p className="text-xs text-[var(--muted-foreground)] mt-1">
-            on KleverChain
+            on Klever Blockchain
           </p>
         </div>
       </div>
