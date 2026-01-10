@@ -75,7 +75,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build
-        run: pnpm build
+      - name: Build for Cloudflare
+        run: pnpm build:worker
         env:
           NEXT_PUBLIC_KLEVER_API_URL: https://api.mainnet.klever.org

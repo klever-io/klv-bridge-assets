@@ -5,6 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:worker": "opennextjs-cloudflare build",
+    "preview": "opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare deploy",
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -25,6 +28,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
+    "@opennextjs/cloudflare": "^1.14.8",
     "@tailwindcss/postcss": "^4.1.18",
     "@types/canvas-confetti": "^1.9.0",
     "@types/d3-sankey": "^0.12.5",
@@ -41,7 +45,8 @@
     "globals": "^17.0.0",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.18",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "wrangler": "^4.58.0"
   },
   "packageManager": "pnpm@9.15.2"
 }
