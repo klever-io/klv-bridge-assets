@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security Vulnerability
+    url: https://github.com/klever-io/klv-bridge-assets/security/policy
+    about: Please report security vulnerabilities through our security policy
+  - name: Questions & Discussions
+    url: https://github.com/klever-io/klv-bridge-assets/discussions
+    about: Ask questions and discuss ideas in GitHub Discussions
+  - name: Discord Community
+    url: https://discord.gg/klever
+    about: Join our Discord for real-time community support
