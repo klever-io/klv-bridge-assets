@@ -305,25 +305,150 @@ export function ChainFlowSankey({ tokens, prices, isLoading }: ChainFlowSankeyPr
   }
   const selectedTotal = Array.from(selectedTokenTotals.values()).reduce((a, b) => a + b, 0);
 
+  // Mobile view - simplified list layout
+  const MobileView = () => (
+    <div className="md:hidden">
+      {/* Source Chains */}
+      <div className="mb-6">
+        <p className="text-xs font-medium text-(--muted-foreground) mb-3 uppercase tracking-wider">Source Chains</p>
+        <div className="space-y-2">
+          {chainData.map((chain, index) => (
+            <motion.div
+              key={chain.id}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: index * 0.05 }}
+              className="flex items-center gap-3 p-3 bg-(--muted)/30 rounded-xl"
+            >
+              <Image
+                src={chain.logo}
+                alt={chain.name}
+                width={32}
+                height={32}
+                className="rounded-full"
+              />
+              <div className="flex-1 min-w-0">
+                <span className="block text-sm font-semibold text-(--foreground)">
+                  {chain.name}
+                </span>
+                <span
+                  className="inline-block px-1.5 py-0.5 rounded text-[10px] font-semibold tabular-nums mt-0.5"
+                  style={{
+                    backgroundColor: `${chain.color}30`,
+                    color: chain.color,
+                  }}
+                >
+                  {chain.percentage.toFixed(1)}%
+                </span>
+              </div>
+              <span className="text-sm font-bold text-(--foreground) tabular-nums">
+                {formatUsdValue(chain.totalValue)}
+              </span>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* Flow Arrow */}
+      <div className="flex justify-center my-4">
+        <div className="flex flex-col items-center gap-1">
+          <svg className="w-6 h-6 text-(--primary)" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+          <span className="text-xs text-(--muted-foreground)">Bridged to</span>
+        </div>
+      </div>
+
+      {/* Target Tokens */}
+      <div className="mb-6">
+        <p className="text-xs font-medium text-(--muted-foreground) mb-3 uppercase tracking-wider">Target Tokens</p>
+        <div className="space-y-2">
+          {Array.from(tokenTotals.entries()).map(([tokenId, tokenInfo], index) => {
+            const tokenColor = TOKEN_COLORS[tokenId] ?? "#6b7280";
+            const percentage = selectedTotal > 0 ? ((selectedTokenTotals.get(tokenId) ?? tokenInfo.value) / selectedTotal) * 100 : 0;
+
+            return (
+              <motion.div
+                key={tokenId}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2 + index * 0.05 }}
+                className="flex items-center gap-3 p-3 bg-(--muted)/30 rounded-xl"
+              >
+                <Image
+                  src={tokenInfo.logo}
+                  alt={tokenInfo.symbol}
+                  width={32}
+                  height={32}
+                  className="rounded-full"
+                />
+                <div className="flex-1 min-w-0">
+                  <span className="block text-sm font-semibold text-(--foreground)">
+                    {tokenInfo.symbol}
+                  </span>
+                  <span
+                    className="inline-block px-1.5 py-0.5 rounded text-[10px] font-semibold tabular-nums mt-0.5"
+                    style={{
+                      backgroundColor: `${tokenColor}25`,
+                      color: tokenColor,
+                    }}
+                  >
+                    {percentage.toFixed(1)}%
+                  </span>
+                </div>
+                <span className="text-sm font-bold text-(--foreground) tabular-nums">
+                  {formatUsdValue(tokenInfo.value)}
+                </span>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* KleverChain Destination */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4 }}
+        className="flex items-center gap-3 p-3 bg-(--primary)/10 border-2 border-(--primary)/30 rounded-xl"
+      >
+        <Image
+          src="/assets/chains/klever.png"
+          alt="KleverChain"
+          width={32}
+          height={32}
+          className="rounded-full"
+        />
+        <span className="flex-1 text-sm font-bold text-(--primary)">KleverChain</span>
+        <span className="text-sm font-bold text-(--primary) tabular-nums">
+          {formatUsdValue(selectedTotal)}
+        </span>
+      </motion.div>
+    </div>
+  );
+
   return (
     <motion.section
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.2 }}
-      className="card-glass rounded-2xl p-6 md:p-8 mt-8 mb-8"
+      className="glass-panel glass-inner-glow rounded-2xl p-6 md:p-8 mt-8 mb-8"
     >
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
           <h2 className="text-lg font-semibold text-(--foreground)">Cross-Chain Flow</h2>
-          <p className="text-sm text-(--muted-foreground)">
+          <p className="text-sm text-(--muted-foreground) hidden md:block">
             Click chains to select/deselect
           </p>
         </div>
       </div>
 
-      {/* Main Layout: Source | Flow | Target */}
-      <div className="flex gap-0 min-h-[380px]">
+      {/* Mobile View */}
+      <MobileView />
+
+      {/* Desktop Layout: Source | Flow | Target */}
+      <div className="hidden md:flex gap-0 min-h-[380px]">
         {/* Left Column - Source Chains */}
         <div className="w-[220px] flex-shrink-0 border-r border-(--border) pr-4">
           <p className="text-xs font-medium text-(--muted-foreground) mb-4 uppercase tracking-wider">Source</p>
@@ -343,11 +468,16 @@ export function ChainFlowSankey({ tokens, prices, isLoading }: ChainFlowSankeyPr
                   onMouseLeave={() => setHoveredChain(null)}
                   className={`w-full flex items-center gap-2 p-2.5 rounded-xl transition-all overflow-hidden ${
                     isSelected
-                      ? "bg-(--primary)/10 border-2 border-(--primary)/40 shadow-lg shadow-(--primary)/10"
+                      ? "border-2 shadow-lg"
                       : "bg-(--muted)/30 border-2 border-transparent hover:bg-(--muted)/50 hover:border-(--border)"
                   } ${isHovered ? "scale-[1.02]" : ""}`}
                   style={{
                     opacity: !isSelected && !isHovered && selectedChains.size > 0 ? 0.5 : 1,
+                    ...(isSelected && {
+                      backgroundColor: `${chain.color}15`,
+                      borderColor: `${chain.color}50`,
+                      boxShadow: `0 10px 15px -3px ${chain.color}20`,
+                    }),
                   }}
                 >
                   {/* Chain Icon */}
@@ -566,8 +696,8 @@ export function ChainFlowSankey({ tokens, prices, isLoading }: ChainFlowSankeyPr
         </div>
       </div>
 
-      {/* Footer Legend */}
-      <div className="flex justify-center mt-6 pt-4 border-t border-(--border)">
+      {/* Footer Legend - Desktop only */}
+      <div className="hidden md:flex justify-center mt-6 pt-4 border-t border-(--border)">
         <div className="flex items-center gap-6 text-xs text-(--muted-foreground)">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-(--primary)/50 ring-2 ring-(--primary)/30" />

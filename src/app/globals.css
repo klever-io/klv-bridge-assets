@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Enable class-based dark mode for Tailwind v4 */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   /* Klever Brand Colors - Based on klever.org */
   --color-klv-pink: #e91e8c;
@@ -16,10 +19,11 @@
 }
 
 :root {
-  /* Near-black backgrounds like klever.org */
-  --background: #050507;
-  --background-secondary: #0a0a0f;
-  --background-card: #0f0f14;
+  /* Pure black backgrounds like klever.org */
+  --background: #000000;
+  --background-secondary: #0b0c0e;
+  --background-card: rgba(22, 22, 22, 0.5);
+  --background-card-solid: #0b0c0e;
   --foreground: #ffffff;
   --foreground-secondary: #a1a1aa;
   /* Pink/Magenta primary - matches Klever logo */
@@ -29,10 +33,10 @@
   --secondary: #9333ea;
   --secondary-hover: #a855f7;
   --accent: #d946ef;
-  --muted: #18181b;
+  --muted: #111113;
   --muted-foreground: #71717a;
-  --border: #27272a;
-  --border-hover: #3f3f46;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.15);
   --success: #22c55e;
   --warning: #f59e0b;
   --error: #ef4444;
@@ -59,11 +63,34 @@
 
 /* Light mode glassmorphic card override */
 :root.light .card-glass {
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow:
-    0 4px 16px rgba(0, 0, 0, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    0 4px 16px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+/* Light mode glass panel override */
+:root.light .glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+:root.light .glass-panel::before {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(233, 30, 140, 0.3) 15%,
+    rgba(255, 150, 50, 0.3) 30%,
+    rgba(50, 200, 100, 0.25) 45%,
+    rgba(50, 150, 255, 0.3) 60%,
+    rgba(147, 51, 234, 0.3) 75%,
+    rgba(233, 30, 140, 0.3) 90%,
+    transparent 100%
+  );
 }
 
 * {
@@ -81,6 +108,27 @@ body {
     Roboto,
     sans-serif;
   min-height: 100vh;
+  position: relative;
+}
+
+/* Subtle ambient background glow - Klever style */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1400px;
+  height: 800px;
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    rgba(233, 30, 140, 0.04) 0%,
+    rgba(147, 51, 234, 0.02) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: -1;
 }
 
 /* Animated gradient text - Klever style color shift */
@@ -331,15 +379,73 @@ input:focus-visible,
   animation: pulse-ring 2s ease-out infinite;
 }
 
-/* Glassmorphic card - Subtle, premium dark */
+/* Glassmorphic card - Klever.org inspired glass effect */
 .card-glass {
-  background: rgba(15, 15, 20, 0.8);
+  background: rgba(22, 22, 22, 0.5);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.card-glass:hover {
+  background: rgba(28, 28, 28, 0.6);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Premium glass panel - for hero sections */
+.glass-panel {
+  background: rgba(11, 12, 14, 0.89);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Prismatic light reflection - Klever style */
+.glass-panel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 120, 120, 0.4) 15%,
+    rgba(255, 200, 100, 0.4) 30%,
+    rgba(120, 255, 150, 0.3) 45%,
+    rgba(100, 200, 255, 0.4) 60%,
+    rgba(180, 120, 255, 0.4) 75%,
+    rgba(255, 100, 200, 0.4) 90%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Subtle inner glow effect */
+.glass-inner-glow {
+  position: relative;
+}
+
+.glass-inner-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    rgba(255, 255, 255, 0.03) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
 }
 
 /* Animated gradient border on hover */
@@ -499,26 +605,6 @@ input:focus-visible,
 
 .explorer-link:hover svg {
   transform: rotate(5deg);
-}
-
-/* Confetti burst keyframes */
-@keyframes confetti-burst {
-  0% {
-    transform: translate(-50%, -50%) scale(0);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(1) translateY(20px);
-    opacity: 0;
-  }
-}
-
-.confetti-particle {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  animation: confetti-burst 0.8s ease-out forwards;
 }
 
 /* ============================================
