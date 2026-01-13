@@ -1,14 +1,46 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(target) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(target)
+      ) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [mobileMenuOpen]);
 
   return (
+    <>
+    {/* Overlay - Outside header for proper z-index stacking */}
+    {mobileMenuOpen && (
+      <div
+        className="fixed inset-0 top-16 z-40 bg-black/20 dark:bg-black/50 md:hidden"
+        onClick={() => setMobileMenuOpen(false)}
+        aria-hidden="true"
+      />
+    )}
+
     <header className="border-b border-black/5 dark:border-white/5 bg-white/80 dark:bg-black/60 backdrop-blur-xl sticky top-0 z-50">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Left - Logo */}
@@ -63,9 +95,12 @@ export function Header() {
 
           {/* Hamburger Menu Button - Mobile Only */}
           <button
+            ref={buttonRef}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10 transition-colors"
             aria-label="Toggle menu"
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-menu"
           >
             <svg
               className="w-6 h-6 text-gray-900 dark:text-white"
@@ -94,35 +129,43 @@ export function Header() {
       </div>
 
       {/* Mobile Menu Dropdown */}
-      {mobileMenuOpen && (
-        <div className="md:hidden border-t border-black/5 dark:border-white/5 bg-white/95 dark:bg-black/95 backdrop-blur-xl">
-          <nav className="container mx-auto px-4 py-4 flex flex-col gap-1">
-            <Link
-              href="/"
-              onClick={() => setMobileMenuOpen(false)}
-              className="px-4 py-3 text-base font-medium text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10 rounded-lg transition-colors"
-            >
-              Assets
-            </Link>
-            <a
-              href="https://bridge.klever.org"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setMobileMenuOpen(false)}
-              className="px-4 py-3 text-base font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/10 rounded-lg transition-colors"
-            >
-              Bridge
-            </a>
-            <Link
-              href="/about"
-              onClick={() => setMobileMenuOpen(false)}
-              className="px-4 py-3 text-base font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/10 rounded-lg transition-colors"
-            >
-              About
-            </Link>
-          </nav>
-        </div>
-      )}
+      <div
+        ref={menuRef}
+        id="mobile-menu"
+        className={`md:hidden border-t border-black/5 dark:border-white/5 bg-white/95 dark:bg-black/95 backdrop-blur-xl overflow-hidden transition-all duration-300 ease-out ${
+          mobileMenuOpen
+            ? "max-h-64 opacity-100"
+            : "max-h-0 opacity-0"
+        }`}
+        aria-hidden={!mobileMenuOpen}
+      >
+        <nav className="container mx-auto px-4 py-4 flex flex-col gap-1">
+          <Link
+            href="/"
+            onClick={() => setMobileMenuOpen(false)}
+            className="px-4 py-3 text-base font-medium text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10 rounded-lg transition-colors"
+          >
+            Assets
+          </Link>
+          <a
+            href="https://bridge.klever.org"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setMobileMenuOpen(false)}
+            className="px-4 py-3 text-base font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/10 rounded-lg transition-colors"
+          >
+            Bridge
+          </a>
+          <Link
+            href="/about"
+            onClick={() => setMobileMenuOpen(false)}
+            className="px-4 py-3 text-base font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/10 rounded-lg transition-colors"
+          >
+            About
+          </Link>
+        </nav>
+      </div>
     </header>
+    </>
   );
 }
