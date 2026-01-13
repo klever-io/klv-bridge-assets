@@ -290,7 +290,7 @@ export function ChainFlowSankey({ tokens, prices, isLoading }: ChainFlowSankeyPr
     });
   };
 
-  if (isLoading || chainData.length === 0) {
+  if (isLoading || chainData.length === 0 || !flowData) {
     return null;
   }
 
@@ -448,8 +448,6 @@ export function ChainFlowSankey({ tokens, prices, isLoading }: ChainFlowSankeyPr
       <MobileView />
 
       {/* Desktop Layout: Source | Flow | Target */}
-      {flowData && (
-      <>
       <div className="hidden md:flex gap-0 min-h-[380px]">
         {/* Left Column - Source Chains */}
         <div className="w-[220px] flex-shrink-0 border-r border-(--border) pr-4">
@@ -698,24 +696,22 @@ export function ChainFlowSankey({ tokens, prices, isLoading }: ChainFlowSankeyPr
         </div>
       </div>
 
-        {/* Footer Legend - Desktop only */}
-        <div className="hidden md:flex justify-center mt-6 pt-4 border-t border-(--border)">
-          <div className="flex items-center gap-6 text-xs text-(--muted-foreground)">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-(--primary)/50 ring-2 ring-(--primary)/30" />
-              <span>Selected chain</span>
+      {/* Footer Legend - Desktop only */}
+      <div className="hidden md:flex justify-center mt-6 pt-4 border-t border-(--border)">
+        <div className="flex items-center gap-6 text-xs text-(--muted-foreground)">
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-(--primary)/50 ring-2 ring-(--primary)/30" />
+            <span>Selected chain</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="flex gap-0.5">
+              <div className="w-6 h-0.5 bg-gradient-to-r from-[#627EEA] to-[#26A17B] rounded opacity-70" />
+              <div className="w-6 h-0.5 bg-gradient-to-r from-[#627EEA] to-[#26A17B] rounded opacity-70" />
             </div>
-            <div className="flex items-center gap-2">
-              <div className="flex gap-0.5">
-                <div className="w-6 h-0.5 bg-gradient-to-r from-[#627EEA] to-[#26A17B] rounded opacity-70" />
-                <div className="w-6 h-0.5 bg-gradient-to-r from-[#627EEA] to-[#26A17B] rounded opacity-70" />
-              </div>
-              <span>Asset flow</span>
-            </div>
+            <span>Asset flow</span>
           </div>
         </div>
-      </>
-      )}
+      </div>
     </motion.section>
   );
 }
