@@ -4,7 +4,6 @@ import { useMemo } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { AnimatedNumber } from "@/components/ui/animated-number";
-import { ConfettiCelebration } from "@/components/ui/confetti-celebration";
 import { formatUsdValue } from "@/services/coingecko-api";
 import type { TokenBalanceData } from "@/types/bridge";
 import type { TokenPrices } from "@/services/coingecko-api";
@@ -113,7 +112,7 @@ export function TVLHero({ tokens, prices, isLoading, isPricesLoading }: TVLHeroP
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="card-glass rounded-2xl p-6 md:p-8 mb-8"
+      className="glass-panel glass-inner-glow rounded-2xl p-6 md:p-8 mb-8"
       aria-label="Bridge statistics overview"
     >
       {/* TVL Counter */}
@@ -244,13 +243,6 @@ export function TVLHero({ tokens, prices, isLoading, isPricesLoading }: TVLHeroP
           <p className="stat-label">Backed</p>
         </div>
       </div>
-
-      {/* Confetti celebration when fully backed */}
-      <ConfettiCelebration
-        trigger={!showLoading && stats.backingRatio >= 100}
-        colors={["#e91e8c", "#9333ea", "#22c55e", "#d946ef"]}
-        particleCount={40}
-      />
 
       {/* Backing Status Badge */}
       {!showLoading && (
