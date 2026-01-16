@@ -55,7 +55,7 @@ export function ProgressBar({
     <div className={`space-y-2 ${className}`}>
       <div className="relative">
         {showTooltip && (
-          <div className="tooltip inline-block absolute -top-1 right-0">
+          <div className="tooltip-below inline-block absolute -top-1 right-0">
             <button
               type="button"
               className="w-5 h-5 rounded-full bg-[var(--muted)] text-[var(--muted-foreground)] text-xs flex items-center justify-center hover:bg-[var(--border)] transition-colors"
@@ -63,7 +63,7 @@ export function ProgressBar({
             >
               ?
             </button>
-            <div className="tooltip-content w-64 whitespace-normal text-[var(--foreground-secondary)]">
+            <div className="tooltip-content-below w-64 whitespace-normal text-[var(--foreground-secondary)]">
               <strong className="text-[var(--foreground)]">Backing Ratio</strong>
               <br />
               Shows the ratio of tokens locked on source chains compared to tokens minted on Klever Blockchain. 100% or higher means fully backed.
