@@ -137,7 +137,7 @@ export function Header() {
             ? "max-h-64 opacity-100"
             : "max-h-0 opacity-0"
         }`}
-        aria-hidden={!mobileMenuOpen}
+        inert={!mobileMenuOpen ? true : undefined}
       >
         <nav className="container mx-auto px-4 py-4 flex flex-col gap-1">
           <Link
