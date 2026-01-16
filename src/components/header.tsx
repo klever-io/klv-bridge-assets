@@ -42,7 +42,7 @@ export function Header() {
     )}
 
     <header className="border-b border-black/5 dark:border-white/5 bg-white/80 dark:bg-black/60 backdrop-blur-xl sticky top-0 z-50">
-      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+      <div className="container mx-auto px-4 h-16 flex items-center justify-between relative">
         {/* Left - Logo */}
         <Link href="/" className="flex items-center gap-3 group">
           {/* Dark logo for light mode */}
@@ -65,8 +65,8 @@ export function Header() {
           />
         </Link>
 
-        {/* Center - Desktop Navigation */}
-        <nav className="hidden md:flex items-center justify-center gap-6 lg:gap-10">
+        {/* Center - Desktop Navigation (absolutely positioned for true centering) */}
+        <nav className="hidden md:flex items-center justify-center gap-6 lg:gap-10 absolute left-1/2 -translate-x-1/2">
           <Link
             href="/"
             className="text-sm text-gray-900 dark:text-white hover:text-(--primary) transition-colors"
