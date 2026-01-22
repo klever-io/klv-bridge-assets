@@ -311,6 +311,54 @@ input:focus-visible,
   visibility: visible;
 }
 
+/* Tooltip positioned below (for containers with overflow:hidden) */
+.tooltip-below {
+  position: static;
+  z-index: 50;
+}
+
+.tooltip-content-below {
+  display: none;
+  position: absolute;
+  top: auto;
+  /* Position relative to card padding on all screen sizes */
+  left: 16px;
+  right: 16px;
+  transform: none;
+  width: auto;
+  max-width: none;
+  margin-top: 8px;
+  padding: 10px 14px;
+  background: var(--background-secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 1.5;
+  z-index: 9999;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Desktop: constrain max-width for readability */
+@media (min-width: 768px) {
+  .tooltip-content-below {
+    right: auto;
+    width: max-content;
+    max-width: min(280px, calc(100% - 32px));
+  }
+}
+
+.tooltip-below:hover .tooltip-content-below,
+.tooltip-below:focus-within .tooltip-content-below {
+  display: block;
+}
+
+/* Elevate card z-index when tooltip is active to appear above other cards */
+.card-glass:has(.tooltip-below:hover),
+.card-glass:has(.tooltip-below:focus-within) {
+  z-index: 100;
+  position: relative;
+}
+
 /* Modal animation */
 .animate-modal-in {
   animation: modalIn 0.2s ease-out;
@@ -387,7 +435,7 @@ input:focus-visible,
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 16px;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   transition: all 0.3s ease;
 }
 
@@ -451,7 +499,6 @@ input:focus-visible,
 /* Animated gradient border on hover */
 .card-gradient-border {
   position: relative;
-  overflow: hidden;
 }
 
 .card-gradient-border::after {
