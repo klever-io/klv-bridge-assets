@@ -42,7 +42,7 @@ The Klever Bridge enables cross-chain asset transfers between Klever Blockchain 
 
 ### Prerequisites
 
-- Node.js 20+
+- Node.js 24+
 - pnpm 9+
 
 ### Installation
